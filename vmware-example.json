@@ -1,0 +1,35 @@
+{
+    "variables": {
+        "isopath": "{{env `PWD`}}"
+    },
+
+    "builders": [
+        {
+        "type": "vmware-iso",
+        "iso_url": "file:{{user `isopath`}}/Mirrors/centos/6/isos/x86_64/CentOS-6.5-x86_64-minimal.iso",
+        "iso_checksum": "0d9dc37b5dd4befa1c440d2174e88a87",
+        "iso_checksum_type": "md5",
+        "http_directory": ".",
+
+        "ssh_username": "packer",
+        "ssh_password": "packer",
+        "ssh_wait_timeout": "10m",
+        "shutdown_command": "echo 'packer' | sudo -E -S /sbin/shutdown -P now",
+
+        "boot_wait": "5s",
+        "boot_command":
+        [
+            "<tab> text ks=http://{{ .HTTPIP }}:{{ .HTTPPort }}/ks.cfg <wait5><enter>"
+        ]
+        }
+    ],
+    "provisioners": [
+        {
+        "type": "shell",
+        "execute_command": "echo 'packer' | {{ .Vars }} sudo -E -S sh '{{ .Path }}'",
+        "scripts": [
+        "scripts/puppet.sh"
+        ]
+        }
+    ]
+}
