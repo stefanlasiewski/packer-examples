@@ -16,11 +16,13 @@ Instructions:
 
 1. Install Packer
 2. Download this git repo.
-3. Download ISOs for EL6 and place them in the PWD. See 'isopath' and 'iso_url' for the exact location.
+3. Download ISOs for EL6 and place them in the PWD. See `isopath` and `iso_url` for the exact location.
 3. Build image using packer
 
-    % export PATH=$PATH:/path/to/packer
-    % packer build vmware-example.json
+```
+export PATH=$PATH:/path/to/packer
+packer build vmware-example.json
+```
 
 Notes:
 
